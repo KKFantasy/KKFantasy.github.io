@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://osf659zkg.bkt.clouddn.com/qiniusource/images/2017-07-02-Xcode工程中pdf矢量图踩坑记录/3.png">
 <meta property="og:image" content="http://osf659zkg.bkt.clouddn.com/qiniusource/images/2017-07-02-Xcode工程中pdf矢量图踩坑记录/4.png">
 <meta property="og:image" content="http://osf659zkg.bkt.clouddn.com/qiniusource/images/2017-07-02-Xcode工程中pdf矢量图踩坑记录/5.png">
-<meta property="og:updated_time" content="2017-07-02T03:25:36.000Z">
+<meta property="og:updated_time" content="2017-07-02T03:31:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode工程中pdf矢量图踩坑记录">
 <meta name="twitter:description" content="起因​    由于公司的项目采用weex实现，因此大部分图片资源是由前端同学引入工程的，开始并没有制定相关的规范，所以Assets.xcassets内管理的图片资源比较凌乱。今天想要整理一下，精简掉不必要的图片，顺便压缩一下工程中的图片，减小ipa包的体积。然而整理过程中却在工程中看到了2组pdf格式的图片，如下图所示亘在Assets.xcassets，每组三张，每张占据1.8M的体积，这当然不能">
@@ -115,7 +115,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -324,7 +324,7 @@
 
       
         <h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>​    由于公司的项目采用weex实现，因此大部分图片资源是由前端同学引入工程的，开始并没有制定相关的规范，所以Assets.xcassets内管理的图片资源比较凌乱。今天想要整理一下，精简掉不必要的图片，顺便压缩一下工程中的图片，减小ipa包的体积。然而整理过程中却在工程中看到了2组pdf格式的图片，如下图所示亘在Assets.xcassets，每组三张，每张占据1.8M的体积，这当然不能忍。</p>
-<p><img src="http://osf659zkg.bkt.clouddn.com/qiniusource/images/2017-07-02-Xcode工程中pdf矢量图踩坑记录/0.png" width="300" alt=""></p>
+<p><img src="http://osf659zkg.bkt.clouddn.com/qiniusource/images/2017-07-02-Xcode工程中pdf矢量图踩坑记录/0.png" width="300"></p>
 <h3 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h3><p>​    既然是矢量图，当然没必要保留三张，第一步当然是删掉重复的两张。删掉之后，问题来了，2x，3x位置均空下来了，对于矢量图这样的存储方式显然是不好的。网上了解之后<sup><a href="http://www.jianshu.com/p/e4fe82ca6fd0" target="_blank" rel="external">[1]</a></sup> ，需要将图片的Scale选项设置为Single Scale。</p>
 <p><img src="http://osf659zkg.bkt.clouddn.com/qiniusource/images/2017-07-02-Xcode工程中pdf矢量图踩坑记录/1.png" width="300"></p>
 <p>​    搞完pdf后，又删除了项目中用不到的1x图片，此时觉得打包之后的ipa文件一定小了不少。既然都到这了，干脆再用<a href="https://imageoptim.com/mac" target="_blank" rel="external">imageOptim</a>压缩一下项目中的图片吧，压缩工作也完成之后，心满意足，打包看看这下ipa小了多少吧。结果打包完成，震惊了！<strong>原来46.8M的APP变成了79.6M，什么鬼！</strong></p>
