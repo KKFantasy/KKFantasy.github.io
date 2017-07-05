@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Xcode工程中pdf矢量图踩坑记录]]></title>
+    <url>%2F2017%2F07%2F02%2FXcode%E5%B7%A5%E7%A8%8B%E4%B8%ADpdf%E7%9F%A2%E9%87%8F%E5%9B%BE%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[起因​ 由于公司的项目采用weex实现，因此大部分图片资源是由前端同学引入工程的，开始并没有制定相关的规范，所以Assets.xcassets内管理的图片资源比较凌乱。今天想要整理一下，精简掉不必要的图片，顺便压缩一下工程中的图片，减小ipa包的体积。然而整理过程中却在工程中看到了2组pdf格式的图片，如下图所示亘在Assets.xcassets，每组三张，每张占据1.8M的体积，这当然不能忍。 处理​ 既然是矢量图，当然没必要保留三张，第一步当然是删掉重复的两张。删掉之后，问题来了，2x，3x位置均空下来了，对于矢量图这样的存储方式显然是不好的。网上了解之后[1] ，需要将图片的Scale选项设置为Single Scale。 ​ 搞完pdf后，又删除了项目中用不到的1x图片，此时觉得打包之后的ipa文件一定小了不少。既然都到这了，干脆再用imageOptim压缩一下项目中的图片吧，压缩工作也完成之后，心满意足，打包看看这下ipa小了多少吧。结果打包完成，震惊了！原来46.8M的APP变成了79.6M，什么鬼！ 寻找问题​ 寻找问题的方法只能是一个一个的原因去排除，而这个过程就是不停的打包，这个过程真是痛苦，结果如下： ​ 首先我怀疑是不是imageOptim压缩导致的问题，好了，打包看看吧。首先，用git回退到上一条commit，打包出对照组Radinace_original，46.8M，没问题。 ​ 然后仅进行图片压缩，打包得到Radiance_imageoptim，46.8M。倒是没有变大，但是完全跟原始的包大小没有区别。等等，说好的压缩了呢，而且图片文件也是实实在在的变小了啊。究竟是什么原因呢，搜索之后，找到一些资料[2]。大概是说，为了优化iOSAPP的性能，Xcode会对PNG文件进行重压，结果优化的目的达到了，但副作用是由于图片被重建，ImageOptim所做的工作也被撤销了。所以，今后不需要对工程中的PNG图片进行压缩了，并没有用。 压缩图片之后。 ​ Xcode处理之后。 ​ 使用git reset --hard还原工作目录，然后仅对pdf进行处理后得到Radiance_pdf_single_scale，79.6M！原来就是你，罪魁祸首找到了。稍后再对原因进行探索。 ​ 同样的方法还原目录，仅删除无用文件后打包得到Radiance_delete_unuse_image，不出所料，43.1M，看来只有删除无用文件这一种方式是可行的了。 ​ 备注：其实寻找问题的过程并没有如此顺利，在打包寻找问题的过程中由于没有完全分离变量，导致有些包没有起到寻找原因的作用。不过还好有fastlane gym这个工具，方便了打包过程，有空记录一下fastlane的配置过程。 探索原因​ 究竟是为什么对pdf使用了single scale配置的工程打包之后会如此大呢，首先想到的是解包看看。分别解包Radiance_original和Radiance_pdf_single_scale，对比之后发现，主要区别在于包内的Aseets.car文件。对Radiance_original的Aseets.car重命名为Assets_small.car，对Radiance_pdf_single_scale的Aseets.car重命名为Assets_large.car，Assets_small.car大24.1M，Assets_large.car大64.4M。 ​ car文件是Assets.xcassets打包得到的，需要对cer文件继续解压看看。解压cer文件需要用到工具，这里使用的是cartool，用法[3]是将从github拉下来的工程编译，得到可执行文件cartool，然后在cartool所在路径./cartool car文件路径 解压目标路径的方式解压car。解压后发现large文件夹大19.2M，small文件夹大10.9M，并没有相差很多，那么为什么car文件差距如此大，仍需要继续探索。 ​ 备注：又发现了另一个好用的car工具AssetCatalogTinkerer，带有quicklook功能。 总结 已对照的方式查找原因时一定要清楚的分离变量，才能提高验证的正确性与效率。 使用压缩软件对Assets.xcassets中的图片进行压缩并不能起到减小ipa包体积的作用 不在工程中使用pdf格式的图片，与其潜在的问题对比，收益并不大[4]。]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F05%2F13%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>
