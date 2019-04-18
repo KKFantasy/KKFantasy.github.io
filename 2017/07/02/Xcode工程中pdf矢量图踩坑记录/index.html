@@ -97,17 +97,17 @@
 <meta property="og:site_name" content="kangke&#39;s blog">
 <meta property="og:description" content="起因​    由于公司的项目采用weex实现，因此大部分图片资源是由前端同学引入工程的，开始并没有制定相关的规范，所以Assets.xcassets内管理的图片资源比较凌乱。今天想要整理一下，精简掉不必要的图片，顺便压缩一下工程中的图片，减小ipa包的体积。然而整理过程中却在工程中看到了2组pdf格式的图片，如下图所示亘在Assets.xcassets，每组三张，每张占据1.8M的体积，这当然不能">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://kkfantasy.github.io/2017/07/02/Xcode工程中pdf矢量图踩坑记录/2017/07/02/Xcode工程中pdf矢量图踩坑记录/0.png">
-<meta property="og:image" content="http://kkfantasy.github.io/2017/07/02/Xcode工程中pdf矢量图踩坑记录/2017/07/02/Xcode工程中pdf矢量图踩坑记录/1.png">
-<meta property="og:image" content="http://kkfantasy.github.io/2017/07/02/Xcode工程中pdf矢量图踩坑记录/2017/07/02/Xcode工程中pdf矢量图踩坑记录/2.png">
-<meta property="og:image" content="http://kkfantasy.github.io/2017/07/02/Xcode工程中pdf矢量图踩坑记录/2017/07/02/Xcode工程中pdf矢量图踩坑记录/3.png">
-<meta property="og:image" content="http://kkfantasy.github.io/2017/07/02/Xcode工程中pdf矢量图踩坑记录/2017/07/02/Xcode工程中pdf矢量图踩坑记录/4.png">
-<meta property="og:image" content="http://kkfantasy.github.io/2017/07/02/Xcode工程中pdf矢量图踩坑记录/2017/07/02/Xcode工程中pdf矢量图踩坑记录/5.png">
-<meta property="og:updated_time" content="2019-04-18T11:51:35.372Z">
+<meta property="og:image" content="http://kkfantasy.github.io/0.png">
+<meta property="og:image" content="http://kkfantasy.github.io/1.png">
+<meta property="og:image" content="http://kkfantasy.github.io/2.png">
+<meta property="og:image" content="http://kkfantasy.github.io/3.png">
+<meta property="og:image" content="http://kkfantasy.github.io/4.png">
+<meta property="og:image" content="http://kkfantasy.github.io/5.png">
+<meta property="og:updated_time" content="2019-04-18T11:55:00.468Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode工程中pdf矢量图踩坑记录">
 <meta name="twitter:description" content="起因​    由于公司的项目采用weex实现，因此大部分图片资源是由前端同学引入工程的，开始并没有制定相关的规范，所以Assets.xcassets内管理的图片资源比较凌乱。今天想要整理一下，精简掉不必要的图片，顺便压缩一下工程中的图片，减小ipa包的体积。然而整理过程中却在工程中看到了2组pdf格式的图片，如下图所示亘在Assets.xcassets，每组三张，每张占据1.8M的体积，这当然不能">
-<meta name="twitter:image" content="http://kkfantasy.github.io/2017/07/02/Xcode工程中pdf矢量图踩坑记录/2017/07/02/Xcode工程中pdf矢量图踩坑记录/0.png">
+<meta name="twitter:image" content="http://kkfantasy.github.io/0.png">
 
 
 
@@ -357,18 +357,18 @@
 
       
         <h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>​    由于公司的项目采用weex实现，因此大部分图片资源是由前端同学引入工程的，开始并没有制定相关的规范，所以Assets.xcassets内管理的图片资源比较凌乱。今天想要整理一下，精简掉不必要的图片，顺便压缩一下工程中的图片，减小ipa包的体积。然而整理过程中却在工程中看到了2组pdf格式的图片，如下图所示亘在Assets.xcassets，每组三张，每张占据1.8M的体积，这当然不能忍。</p>
-<p><img src="./2017/07/02/Xcode工程中pdf矢量图踩坑记录/0.png" width="300"></p>
+<p><img src="/0.png" width="300"></p>
 <h3 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h3><p>​    既然是矢量图，当然没必要保留三张，第一步当然是删掉重复的两张。删掉之后，问题来了，2x，3x位置均空下来了，对于矢量图这样的存储方式显然是不好的。网上了解之后<sup><a href="https://www.jianshu.com/p/e4fe82ca6fd0" target="_blank" rel="noopener">[1]</a></sup> ，需要将图片的Scale选项设置为Single Scale。</p>
-<p><img src="./2017/07/02/Xcode工程中pdf矢量图踩坑记录/1.png" width="300"></p>
+<p><img src="/1.png" width="300"></p>
 <p>​    搞完pdf后，又删除了项目中用不到的1x图片，此时觉得打包之后的ipa文件一定小了不少。既然都到这了，干脆再用<a href="https://imageoptim.com/mac" target="_blank" rel="noopener">imageOptim</a>压缩一下项目中的图片吧，压缩工作也完成之后，心满意足，打包看看这下ipa小了多少吧。结果打包完成，震惊了！<strong>原来46.8M的APP变成了79.6M，什么鬼！</strong></p>
-<p><img src="./2017/07/02/Xcode工程中pdf矢量图踩坑记录/2.png" width="150"></p>
+<p><img src="/2.png" width="150"></p>
 <h3 id="寻找问题"><a href="#寻找问题" class="headerlink" title="寻找问题"></a>寻找问题</h3><p>​    寻找问题的方法只能是一个一个的原因去排除，而这个过程就是不停的打包，这个过程真是痛苦，结果如下：</p>
-<p><img src="./2017/07/02/Xcode工程中pdf矢量图踩坑记录/3.png" width="500"></p>
+<p><img src="/3.png" width="500"></p>
 <p>​    首先我怀疑是不是imageOptim压缩导致的问题，好了，打包看看吧。首先，用git回退到上一条commit，打包出对照组<code>Radinace_original</code>，46.8M，没问题。</p>
 <p>​    然后仅进行图片压缩，打包得到<code>Radiance_imageoptim</code>，46.8M。倒是没有变大，但是完全跟原始的包大小没有区别。等等，说好的压缩了呢，而且图片文件也是实实在在的变小了啊。究竟是什么原因呢，搜索之后，找到一些资料<sup><a href="https://bjango.com/articles/pngcompression/" target="_blank" rel="noopener">[2]</a></sup>。大概是说，为了优化iOSAPP的性能，Xcode会对PNG文件进行重压，结果优化的目的达到了，但副作用是由于图片被重建，ImageOptim所做的工作也被撤销了。所以，今后不需要对工程中的PNG图片进行压缩了，并没有用。</p>
-<p><img src="./2017/07/02/Xcode工程中pdf矢量图踩坑记录/4.png" alt="4"></p>
+<p><img src="/4.png" alt="4"></p>
 <p>压缩图片之后。</p>
-<p><img src="./2017/07/02/Xcode工程中pdf矢量图踩坑记录/5.png" alt="5"></p>
+<p><img src="/5.png" alt="5"></p>
 <p>​    Xcode处理之后。</p>
 <p>​    使用<code>git reset --hard</code>还原工作目录，然后仅对pdf进行处理后得到<code>Radiance_pdf_single_scale</code>，79.6M！原来就是你，罪魁祸首找到了。稍后再对原因进行探索。</p>
 <p>​    同样的方法还原目录，仅删除无用文件后打包得到<code>Radiance_delete_unuse_image</code>，不出所料，43.1M，看来只有删除无用文件这一种方式是可行的了。</p>
